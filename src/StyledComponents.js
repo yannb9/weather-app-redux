@@ -174,8 +174,9 @@ export const Styles = {
         background: #fff;
         padding: 10px 0;
         margin: 0;
-        margin: -5px;
+        margin: 35px;
         border-radius: 0 0 10px 10px;
+        position:absolute;
         `,
         SuggestionItem:styled.li`
         list-style:none;
