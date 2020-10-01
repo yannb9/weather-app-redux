@@ -168,7 +168,22 @@ export const Styles = {
             color:#900048;
             font-weight:700;
             font-size:12px;
-        `
+        `,
+        Suggestion:styled.ul`
+        width: 300px;
+        background: #fff;
+        padding: 10px 0;
+        margin: 0;
+        margin: -5px;
+        border-radius: 0 0 10px 10px;
+        `,
+        SuggestionItem:styled.li`
+        list-style:none;
+        padding:5px 20px;
+        color:#949090;
+        font-size:14px;
+        cursor:pointer;
+        `,
     },
     Favs: {
         Container: styled.div `

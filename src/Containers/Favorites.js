@@ -16,7 +16,7 @@ class Favorites extends Component {
         this.props.dispatch(Actions.clearFavorites())
         var favs = this.props.weather.favorites.cities;
         favs.map(location => {
-           return fetch(`https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${Api.key}&q=${location}`)
+           return fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${Api.key}&q=${location}`)
                 .then(res => res.json())
                 .then(json => this.props.dispatch(Actions.fetch12HForecast(location, json[0].Key, this.props.weather.favorites.cities)))
         })

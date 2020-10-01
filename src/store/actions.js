@@ -3,7 +3,7 @@ import {Api} from '../Api'
 
 export const fetchTodayForecast = key => {
     return dispatch => {
-        fetch(`https://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${Api.key}`)
+        fetch(`http://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${Api.key}`)
             .then(res => res.json())
             .then(json => {
                 dispatch({
@@ -20,7 +20,7 @@ export const fetchTodayForecast = key => {
 export const fetchFiveDayForecast = key => {
     return dispatch => {
         var fivedays = [];
-        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=${Api.key}`)
+        fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=${Api.key}`)
             .then(res => res.json())
             .then(json => {
                 var forecast = json.DailyForecasts;
@@ -42,7 +42,7 @@ export const fetchFiveDayForecast = key => {
 
 export const setLocation = (location) =>{
     return dispatch => {
-        fetch(`https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${Api.key}&q=${location}`)
+        fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${Api.key}&q=${location}`)
         .then(res=> res.json())
         .then(json=>dispatch(fetchTodayForecast(json[0].Key)))
         .then(()=> dispatch({type:ActionTypes.SET_LOCATION, location:location}))
@@ -71,7 +71,7 @@ export const clearFavorites = () =>{
 
 export const fetch12HForecast = (location, key, array) =>{
     return dispatch =>{
-            fetch(`https://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${Api.key}`)
+            fetch(`http://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${Api.key}`)
             .then(res=>res.json())
             .then(json=>{
                 var stamp = {};
