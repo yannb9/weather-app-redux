@@ -26,6 +26,11 @@ class Search extends Component {
                    suggestions: json
                 })}
              )
+             .then(()=>{
+                this.setState({
+                    suggestions: []
+                 })
+             })
           } else{
             this.setState({
                 suggestions: [],
