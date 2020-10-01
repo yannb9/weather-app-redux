@@ -3,14 +3,14 @@ import {Api} from '../Api'
 
 export const fetchTodayForecast = key => {
     return dispatch => {
-        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/1day/${key}?apikey=${Api.key}`)
+        fetch(`http://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${Api.key}`)
             .then(res => res.json())
             .then(json => {
                 dispatch({
                     type: ActionTypes.FETCH_TODAY_FORECAST,
-                    celcius: parseInt((json.DailyForecasts[0].Temperature.Minimum.Value - 32) * 5 / 9),
-                    fahrenheit: json.DailyForecasts[0].Temperature.Minimum.Value,
-                    status: json.DailyForecasts[0].Day.IconPhrase
+                    celcius: parseInt(json[0].Temperature.Metric.Value),
+                    fahrenheit: json[0].Temperature.Imperial.Value,
+                    status: json[0].WeatherText
                 })
                 dispatch(fetchFiveDayForecast(key))
             })
@@ -20,7 +20,7 @@ export const fetchTodayForecast = key => {
 export const fetchFiveDayForecast = key => {
     return dispatch => {
         var fivedays = [];
-        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=${Api.key}`)
+        fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=${Api.key}`)
             .then(res => res.json())
             .then(json => {
                 var forecast = json.DailyForecasts;
@@ -42,7 +42,7 @@ export const fetchFiveDayForecast = key => {
 
 export const setLocation = (location) =>{
     return dispatch => {
-        fetch(`https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${Api.key}&q=${location}`)
+        fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${Api.key}&q=${location}`)
         .then(res=> res.json())
         .then(json=>dispatch(fetchTodayForecast(json[0].Key)))
         .then(()=> dispatch({type:ActionTypes.SET_LOCATION, location:location}))
@@ -71,17 +71,15 @@ export const clearFavorites = () =>{
 
 export const fetch12HForecast = (location, key, array) =>{
     return dispatch =>{
-        if(!array.indexOf(location)>-1){
-            fetch(`https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${key}?apikey=${Api.key}`)
+            fetch(`http://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${Api.key}`)
             .then(res=>res.json())
             .then(json=>{
                 var stamp = {};
                 stamp.city = location;
-                stamp.fahrenheit = json[0].Temperature.Value;
-                stamp.celcius = parseInt((json[0].Temperature.Value - 32) * 5 / 9);
-                stamp.status = json[0].IconPhrase;
+                stamp.fahrenheit = json[0].Temperature.Imperial.Value;
+                stamp.celcius = parseInt(json[0].Temperature.Metric.Value);
+                stamp.status = json[0].WeatherText;
                 dispatch({type:ActionTypes.FETCH_12H_FORECAST, data: stamp})
             })
-        }
     }
 }
