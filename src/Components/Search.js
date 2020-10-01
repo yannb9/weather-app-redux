@@ -26,11 +26,6 @@ class Search extends Component {
                    suggestions: json
                 })}
              )
-             .then(()=>{
-                this.setState({
-                    suggestions: []
-                 })
-             })
           } else{
             this.setState({
                 suggestions: [],
@@ -46,6 +41,7 @@ class Search extends Component {
     setSearch = (term) =>{
         this.setState({
             search: term.LocalizedName,
+            suggestions: [],
           })
         this.props.dispatch(Actions.setLocation(term.LocalizedName))
     }
