@@ -19,7 +19,7 @@ class Search extends Component {
             search: event.target.value,
           })
           if(event.target.value){
-            fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${Api.key}&q=${event.target.value}`)
+            fetch(`https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${Api.key}&q=${event.target.value}`)
             .then(res=>res.json())
             .then(json=> {
                 this.setState({
