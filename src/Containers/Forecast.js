@@ -13,7 +13,7 @@ class Forecast extends Component {
     }
 
     componentDidMount() {
-        // this.props.dispatch(Actions.setLocation(this.props.weather.data.location))
+        this.props.dispatch(Actions.setLocation(this.props.weather.data.location))
     }
 
     render() {
